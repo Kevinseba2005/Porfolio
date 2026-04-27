@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kevin Seba Jenis M — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #09090f;
+      --surface: #111118;
+      --surface2: #16161f;
+      --border: #1e1e2e;
+      --border2: #2a2840;
+      --text: #e8e6f2;
+      --muted: #7a7890;
+      --faint: #3a3858;
+      --purple: #534AB7;
+      --purple-light: #AFA9EC;
+      --purple-dark: #3C3489;
+      --teal: #1D9E75;
+      --teal-light: #5DCAA5;
+      --amber: #EF9F27;
+      --coral: #F0997B;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 4px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(9,9,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--purple-light); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 30%, rgba(83,74,183,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(29,158,117,0.07) 0%, transparent 60%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 900px;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--purple);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--purple);
+    }
+
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .accent { color: var(--purple-light); }
+
+    .hero-desc {
+      font-size: clamp(15px, 2vw, 17px);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .pill:hover { border-color: var(--purple); color: var(--purple-light); }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .btn-primary {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--purple);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--purple-dark); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover { border-color: var(--purple); color: var(--text); }
+
+    /* ─── STATUS BADGE ─── */
+    .status-badge {
+      position: absolute;
+      bottom: 3rem;
+      right: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(29,158,117,0.08);
+      border: 1px solid rgba(29,158,117,0.25);
+      padding: 8px 14px;
+      border-radius: 100px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2s infinite;
+    }
+
+    .status-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--teal-light);
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 5rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--purple);
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: default;
+    }
+
+    .skill-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-2px);
+    }
+
+    .skill-icon {
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .skill-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .skill-sub {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .skill-bar {
+      margin-top: 10px;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--teal));
+    }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: var(--purple-dark);
+      transform: translateY(-3px);
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--teal));
+    }
+
+    .project-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--border2);
+      line-height: 1;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+
+    .project-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .project-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(83,74,183,0.12);
+      color: var(--purple-light);
+      border: 1px solid rgba(83,74,183,0.2);
+    }
+
+    .tag.teal {
+      background: rgba(29,158,117,0.1);
+      color: var(--teal-light);
+      border-color: rgba(29,158,117,0.2);
+    }
+
+    /* ─── EXPERIENCE ─── */
+    .exp-timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 20px;
+      padding-bottom: 2.5rem;
+    }
+
+    .exp-item:last-child { padding-bottom: 0; }
+
+    .exp-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 5px;
+    }
+
+    .exp-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 0 4px rgba(83,74,183,0.15);
+      flex-shrink: 0;
+    }
+
+    .exp-line {
+      width: 1px;
+      flex: 1;
+      background: var(--border);
+      margin-top: 8px;
+    }
+
+    .exp-body {}
+
+    .exp-company {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .exp-role {
+      font-size: 13px;
+      color: var(--purple-light);
+      margin: 3px 0 12px;
+    }
+
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exp-list li {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .exp-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--purple);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    /* ─── CERTIFICATIONS ─── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .cert-card {
+      background: rgba(29,158,117,0.05);
+      border: 1px solid rgba(29,158,117,0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover { border-color: var(--teal); }
+
+    .cert-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(29,158,117,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal-light);
+      margin-bottom: 3px;
+    }
+
+    .cert-issuer {
+      font-size: 12px;
+      color: rgba(93,202,165,0.5);
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .edu-card:hover { border-color: var(--purple-dark); }
+
+    .edu-degree {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .edu-school {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .edu-grade {
+      font-family: 'Space Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--teal);
+      white-space: nowrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--faint);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--purple-light); }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.9); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 3.5rem 1.25rem; }
+      .hero { padding: 7rem 1.25rem 4rem; }
+      footer { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KSJ<span>.</span>dev</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">ECE · Pre-Final Year · Coimbatore</div>
+    <h1>Kevin Seba<br><span class="accent">Jenis M</span></h1>
+    <p class="hero-desc">
+      Embedded Systems Engineer &amp; IoT Enthusiast with hands-on experience in hardware prototyping, cloud integration, and machine learning fundamentals. Building at the intersection of silicon and cloud.
+    </p>
+    <div class="contact-row">
+      <a href="tel:9597093972" class="pill">9597093972</a>
+      <a href="mailto:kevinseba.m.ece.2023@snsce.ac.in" class="pill">kevinseba.m.ece.2023@snsce.ac.in</a>
+      <span class="pill">Coimbatore, Tamil Nadu</span>
+    </div>
+    <div class="cta-row">
+      <a href="mailto:kevinseba.m.ece.2023@snsce.ac.in" class="btn-primary">Get in Touch</a>
+      <a href="#projects" class="btn-ghost">View Projects ↓</a>
+    </div>
+  </div>
+
+  <div class="status-badge">
+    <div class="status-dot"></div>
+    <span class="status-text">Open to Internships</span>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Technical Skills</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">⚙️</span>
+      <div class="skill-name">Embedded C</div>
+      <div class="skill-sub">Microcontroller scripting &amp; firmware</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">☁️</span>
+      <div class="skill-name">AWS IoT Core</div>
+      <div class="skill-sub">MQTT, cloud/device bridge</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔌</span>
+      <div class="skill-name">Arduino / NodeMCU</div>
+      <div class="skill-sub">Sensor integration, motor control</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🐍</span>
+      <div class="skill-name">Python</div>
+      <div class="skill-sub">NumPy, Pandas, Matplotlib</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🧠</span>
+      <div class="skill-name">Machine Learning</div>
+      <div class="skill-sub">Linear algebra, probability &amp; stats</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">📐</span>
+      <div class="skill-name">Proteus / Git</div>
+      <div class="skill-sub">Circuit simulation &amp; version control</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Projects</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-title">Automatic Medicine Dispenser</div>
+      <p class="project-desc">
+        Scheduled pill dispensing system with remote monitoring capability. Built for integration with AWS IoT Core to enable cloud-connected healthcare automation and real-time alerts.
+      </p>
+      <div class="tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">NodeMCU</span>
+        <span class="tag">Servo Motors</span>
+        <span class="tag teal">AWS IoT Core</span>
+        <span class="tag teal">MQTT</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-title">Fire-Fighting Robot</div>
+      <p class="project-desc">
+        Autonomous flame detection and extinguishing robot using motor-driven navigation. Integrates real-time flame sensor input with motor control logic for independent hazard response.
+      </p>
+      <div class="tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">Flame Sensor</span>
+        <span class="tag">BO Motors</span>
+        <span class="tag">Water Pump</span>
+        <span class="tag teal">Embedded C</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Internship Experience</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-track">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-company">Emglitz Technologies</div>
+        <div class="exp-role">Embedded Systems Intern</div>
+        <ul class="exp-list">
+          <li>Completed mini-projects using Proteus and Arduino IDE for circuit prototyping</li>
+          <li>Built LED blinking, 7-segment display, and sensor interface prototypes from scratch</li>
+          <li>Earned certification in Embedded Systems on completion</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-track">
+        <div class="exp-dot"></div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-company">Appin Technologies</div>
+        <div class="exp-role">Machine Learning Intern</div>
+        <ul class="exp-list">
+          <li>Applied Python with NumPy, Pandas, and Matplotlib for data manipulation and visualization</li>
+          <li>Studied ML fundamentals including linear algebra, probability, and statistics</li>
+          <li>Earned certification in Machine Learning on completion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Certifications</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">Embedded Systems</div>
+        <div class="cert-issuer">Emglitz Technologies</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">Machine Learning</div>
+        <div class="cert-issuer">Appin Technologies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Education</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">B.E. — Electronics &amp; Communication Engineering</div>
+        <div class="edu-school">SNS College of Engineering &nbsp;·&nbsp; 2023–2025</div>
+      </div>
+      <div class="edu-grade">8.14 CGPA</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">HSC — Matriculation</div>
+        <div class="edu-school">Baptist Academy Matric Hr. Sec. School &nbsp;·&nbsp; 2022</div>
+      </div>
+      <div class="edu-grade">75%</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<hr class="divider" />
+<footer>
+  <span class="footer-copy">© 2026 Kevin Seba Jenis M · Coimbatore, India</span>
+  <div class="footer-links">
+    <a href="mailto:kevinseba.m.ece.2023@snsce.ac.in">Email</a>
+    <a href="tel:9597093972">Phone</a>
+  </div>
+</footer>
+
+</body>
+</html>
